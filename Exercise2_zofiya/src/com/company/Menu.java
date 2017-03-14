@@ -23,32 +23,31 @@ public class Menu {
         System.out.println("2. If you want to decrypt the file Press 2");
         System.out.println("0. exit");
         System.out.println("your choice: ");
-        myChoice();
+        String input = readInput();
+        myChoice(input);
+        testInput(input);
 
     }
 
-    public  void myChoice(){
-        String input = readInput();
+    public  void myChoice(String input){
         if (input.length() != 0) {
             switch (input) {
                 case "1":
                    /* System.out.println("Enter a file path:");
                     filePathString = Menu.readInput();*/
                     inputString();
-                    if(myFileOperations.checkpath(filePathString)) {
-                        filePath = new File(filePathString);
+                    /*if(myFileOperations.checkpath(filePathString)) {
+                        filePath = new File(filePathString);*/
                         encryptFile.crypt(filePath);//FileOperations.filePath
-                    }
+
                     break;
                 case "2":
                    /* System.out.println("Enter a file path:");
                     filePathString = Menu.readInput();*/
                     inputString();
-                    if(myFileOperations.checkpath(filePathString)){
-                        filePath = new File(filePathString);
+                    /*if(myFileOperations.checkpath(filePathString)){
+                        filePath = new File(filePathString);*/
                         decryptFile.crypt(filePath);//FileOperations.filePath
-                    }
-
                     break;
 
                 case "0":
@@ -64,7 +63,11 @@ public class Menu {
     // פונקציה שקולטת את הנתיב מהמשתמש
     public  void inputString(){
         System.out.println("Enter a file path:");
-        filePathString = Menu.readInput();
+        filePathString = readInput();
+        while (!(myFileOperations.checkpath(filePathString))){
+            filePathString = readInput();
+        }
+        filePath = new File(filePathString);
         // return filePathString;
     }
 
@@ -78,6 +81,20 @@ public class Menu {
             e.printStackTrace();
         }
         return input;
+    }
+
+    public String testInput(String input){
+        switch (input){
+            case "1":
+                return "1";
+            case "2":
+                return "2";
+            case "0":
+                return "0";
+            default:
+                return null;
+        }
+
     }
 
 
