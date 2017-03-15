@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 /**
  * Created by hackeru on 3/14/2017.
@@ -25,6 +26,7 @@ class MenuTest {
 
     @Test
     void testInputTest() {
+
         Menu m = new Menu();
         //Assertions.assertEquals(m.testInput("a"), "1","not number");
         if (m.testInput("a") != null)
