@@ -26,7 +26,7 @@ class FileOperationsTest {
 
     //לא נתיב
     @Test
-    void checkpathTest_NotPath() {
+    void checkPathTest_NotPath() {
         FileOperations file= new FileOperations();
         if(file.checkpath("jhgfol"))
             Assertions.fail("is not path");
@@ -35,7 +35,7 @@ class FileOperationsTest {
 
     //נתיב אבל לא של קובץ (אלא תקיה)
     @Test
-    void checkpathTest_NotFile(){
+    void checkPathTest_NotFile(){
         FileOperations file= new FileOperations();
         if(file.checkpath("C:/User/hackeru.HACKERU3/Documents/GitHub/Exercisess"))
             Assertions.fail("is not file");
@@ -44,7 +44,7 @@ class FileOperationsTest {
 
     //נתיב לא קיים
     @Test
-    void checkpathTest_PathNotExsit(){
+    void checkPathTest_PathNotExsit(){
         FileOperations file= new FileOperations();
         if(file.checkpath("C:/User/hackeru.HACKERU3/Documents/GitHub/Exercisess/dgsdgs"))
             Assertions.fail("Path does not exist");
@@ -52,7 +52,7 @@ class FileOperationsTest {
 
     //נתיב נכון, בודקים אם לא הוחזר פולס
     @Test
-    void checkpathTest_Path(){
+    void checkPathTest_Path(){
         FileOperations file= new FileOperations();
         if((file.checkpath("C:\\Users\\hackeru.HACKERU3\\Documents\\GitHub\\Exercisess\\Exercises\\z.txt"))==false)
             Assertions.fail("An error was to restore the true");
