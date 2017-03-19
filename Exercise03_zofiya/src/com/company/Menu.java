@@ -37,7 +37,7 @@ public class Menu {
     }
 
     public void chooseOption() {
-        String input;
+        String input = "";
         while (!(input = myInput.input()).equals("0")) {
             myOutput.output(myChoice(input));
             printMenu();
@@ -72,5 +72,6 @@ public class Menu {
         }
         filePath = new File(filePathString);
     }
+
 
 }

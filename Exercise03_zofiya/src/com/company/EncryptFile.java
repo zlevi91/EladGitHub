@@ -41,11 +41,11 @@ public class EncryptFile implements Operations {
         }
         File encrypted = new File(new String(fileName + "_encrypted.txt"));
         try {
-            outputStream = new FileOutputStream(encrypted);
             inputStream = new FileInputStream(sourceFile);
-            int oneByte;
-            while ((oneByte = inputStream.read()) != -1) {
-                outputStream.write(oneByte + key);
+            outputStream = new FileOutputStream(encrypted);
+            int buffer;
+            while ((buffer = inputStream.read()) != -1) {
+                outputStream.write(buffer + key);
             }
 
         } catch (FileNotFoundException e) {
@@ -57,6 +57,13 @@ public class EncryptFile implements Operations {
                 try {
                     outputStream.close();
                 } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            if (inputStream != null)
+                try{
+                    inputStream.close();
+                }
+                catch (IOException e){
                     e.printStackTrace();
                 }
         }

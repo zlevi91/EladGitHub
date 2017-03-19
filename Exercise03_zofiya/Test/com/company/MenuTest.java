@@ -4,6 +4,7 @@
         import org.junit.jupiter.api.Assertions;
         import org.junit.jupiter.api.BeforeEach;
         import org.junit.jupiter.api.Test;
+        import org.mockito.InOrder;
 
         import static org.junit.jupiter.api.Assertions.*;
         import static org.mockito.Mockito.*;
@@ -27,10 +28,6 @@ class MenuTest {
     }
 
     @Test
-    void printMenu() {
-    }
-
-    @Test
     void chooseOptionTest(){
         Input input = mock(Input.class);
         when(input.input()).thenReturn("1").thenReturn("C:\\Users\\hackeru.HACKERU3\\Documents\\GitHub\\Exercisess\\Exercises\\z.txt").thenReturn("0");
@@ -45,10 +42,10 @@ class MenuTest {
                         assertEquals("Enter a file path:", s);
                         break;
                     case 2:
-
-
                         assertEquals("The key is: "+ myMenu.encryptFile.getKey(), s);
                         break;
+                    case 3:
+                        assertEquals("encrypt",s);
                 }
                 outputCount++;
             }
@@ -81,11 +78,20 @@ class MenuTest {
         Assertions.assertEquals(myMenu.myChoice("6"), "invalid option. try again.", "assertion failed for number except 1,2");
     }
 
-
-
     @Test
-    void getPathFromUser() {
-
+    void chooseOptionTest2(){
+        Input input = mock(Input.class);
+        Output output = mock(Output.class);
+        Menu myMenu1 = new Menu(output,input);
+        when(input.input()).thenReturn("2").thenReturn("C:\\Users\\hackeru.HACKERU3\\Documents\\GitHub\\Exercisess\\Exercises\\z.txt").thenReturn("67").thenReturn("0");
+        myMenu1.printMenu();
+        InOrder orderedOutput = inOrder(output);
+        orderedOutput.verify(output).output("please choose:\n 1. If you want to encrypt the file Press 1\n 2. If you want to decrypt the file Press 2\n 0. exit\n your choice:");
+        orderedOutput.verify(output).output("Enter a file path:");
+        orderedOutput.verify(output).output("Enter the encryption key in the file");
+        orderedOutput.verify(output).output("decrypt");
     }
+
+
 
 }
