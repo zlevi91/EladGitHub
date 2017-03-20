@@ -69,7 +69,7 @@ public class Menu {
     }
 
     public void selectionAlgorithm(){
-        myOutput.output("Select the algorithm to use:\n 1. Caesar 1\n 2. XorAlgorithm Press 2\n 3. MultAlgorithm Press 3\n your choice:");
+        myOutput.output("Select the algorithm to use:\n 1. Caesar 1\n 2. XorAlgorithm Press 2\n 3. MultAlgorithm Press 3\n 4. ReverseAlgorithm press 4\n your choice:");
         String input=myInput.input();
         if (input.length()!=0){
             switch (input) {
@@ -83,6 +83,8 @@ public class Menu {
                     crypt = new MultAlgorithm();
                     return;
                 case "4":
+                    crypt= new ReverseAlgorithm(myOutput,myInput);
+                    return;
 
                 default:
                     myOutput.output("invalid option. try again.");

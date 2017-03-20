@@ -10,8 +10,8 @@ public class Main {
         b=(byte)((int)b-200);
         System.out.println(b);*/
 
-        System.out.println("jhfiu");
-        byte b=0;
+
+        /*byte b=0;
         int key=6;
         byte original=10;
         byte en=(byte)(original*key);
@@ -22,14 +22,9 @@ public class Main {
                 System.out.println(i);
                 System.out.println((byte)i*en);
             }
-        }
+        }*/
 
-
-
-
-
-
-        /*Menu myMenu = new Menu(new ScreenOutput(), new ScreenInput());
-        myMenu.printMenu();*/
+        Menu myMenu = new Menu(new ScreenOutput(), new ScreenInput());
+        myMenu.printMenu();
     }
 }

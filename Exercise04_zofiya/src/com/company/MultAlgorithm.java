@@ -6,7 +6,10 @@ import java.io.*;
  * Created by hackeru on 3/20/2017.
  */
 public class MultAlgorithm extends Algorithms implements Operations {
+
+    @Override
     public void crypt(File sourceFile, int key, boolean type) {
+        makeFile(sourceFile,type);
         OutputStream outputStream = null;
         InputStream inputStream = null;
         try {
@@ -54,14 +57,12 @@ public class MultAlgorithm extends Algorithms implements Operations {
 
     @Override
     public void encrypted(File sourceFile, int key) {
-        makeFile(sourceFile,true);
         crypt(sourceFile,key,true);
 
     }
 
     @Override
     public void decrypted(File sourceFile, int key) {
-        makeFile(sourceFile,false);
         crypt(sourceFile,key,false);
     }
 }
