@@ -20,7 +20,13 @@ public class MultAlgorithm extends Algorithms implements Operations {
             }
             else{
                 while ((buffer = inputStream.read()) != -1) {
-                    outputStream.write(buffer * (1/key));
+                    for (int i = 1; i <=255 ; i++) {
+                        int k = (byte) (i * key);
+                        if (k == 1) {
+                            key=i;
+                        }
+                    }
+                    outputStream.write(buffer *key);
                 }
             }
 
