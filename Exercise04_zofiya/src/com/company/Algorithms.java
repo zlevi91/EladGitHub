@@ -5,10 +5,25 @@ import java.io.File;
 /**
  * Created by hackeru on 3/20/2017.
  */
-public abstract class Algorithms {
+public abstract class Algorithms implements Operations {
     File destinationFile;
+    static Listener listener;
 
-    public void makeFile(File sourceFile, boolean type){
+    public static void setListener(Listener listener) {
+        Algorithms.listener = listener;
+    }
+
+    void started() {
+        if (listener != null)
+            listener.StartDetect();
+    }
+
+    void ended() {
+        if (listener != null)
+            listener.EndDetect();
+    }
+
+    public String makeFile(File sourceFile, boolean type) {
         String fileName = sourceFile.getAbsolutePath();
         int pos = fileName.lastIndexOf(".");
         if (pos > 0) {
@@ -16,10 +31,10 @@ public abstract class Algorithms {
         }
         if (type) {
             destinationFile = new File(new String(fileName + "_encrypted.txt"));
-        }
-        else{
+        } else {
             destinationFile = new File(new String(fileName + "_decrypted.txt"));
         }
+        return destinationFile.getName();
     }
 
 

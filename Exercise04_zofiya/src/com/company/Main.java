@@ -11,20 +11,22 @@ public class Main {
         System.out.println(b);*/
 
 
-        /*byte b=0;
-        int key=6;
-        byte original=10;
-        byte en=(byte)(original*key);
+
+        /*int key=6;
+        int original=250;
+        int en=(original*key)&0x000000FF;//מספר בין 0 ל255
+        int decryptionKey=0;
         for (int i = 1; i <=255 ; i++) {
             int k= i*key;
-            if((byte)k==1) {
-                System.out.println(k);
-                System.out.println(i);
-                System.out.println((byte)i*en);
+            if(((i*key)&0x000000FF)==1) {
+                decryptionKey=i;
+                break;
             }
-        }*/
+        }
+        int decrypted=(en*decryptionKey)&0x000000FF;*/
 
         Menu myMenu = new Menu(new ScreenOutput(), new ScreenInput());
+        Algorithms.setListener(myMenu);
         myMenu.printMenu();
     }
 }

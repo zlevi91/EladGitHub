@@ -2,10 +2,12 @@ package com.company;
 
 import java.io.*;
 
+import static com.company.FileHandler.CloseFile;
+
 /**
  * Created by hackeru on 3/20/2017.
  */
-public class Caesar extends Algorithms implements Operations {
+public class Caesar extends Algorithms  {
     //File destinationFile;
 
     /*public void makeFile(File sourceFile, boolean type){
@@ -24,6 +26,7 @@ public class Caesar extends Algorithms implements Operations {
     }*/
     @Override
     public void crypt(File sourceFile, int key, boolean type) {
+        started();
         makeFile(sourceFile,type);
         OutputStream outputStream = null;
         InputStream inputStream = null;
@@ -41,13 +44,14 @@ public class Caesar extends Algorithms implements Operations {
                     outputStream.write(buffer - key);
                 }
             }
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (outputStream != null)
+            ended();
+            CloseFile(outputStream, inputStream);
+            /*if (outputStream != null)
                 try {
                     outputStream.close();
                 } catch (IOException e) {
@@ -59,7 +63,7 @@ public class Caesar extends Algorithms implements Operations {
                 }
                 catch (IOException e){
                     e.printStackTrace();
-                }
+                }*/
         }
     }
 

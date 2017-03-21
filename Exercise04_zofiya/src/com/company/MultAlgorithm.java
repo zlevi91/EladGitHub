@@ -2,67 +2,59 @@ package com.company;
 
 import java.io.*;
 
+import static com.company.FileHandler.CloseFile;
+
 /**
  * Created by hackeru on 3/20/2017.
  */
-public class MultAlgorithm extends Algorithms implements Operations {
+public class MultAlgorithm extends Algorithms {
 
     @Override
     public void crypt(File sourceFile, int key, boolean type) {
-        makeFile(sourceFile,type);
+        makeFile(sourceFile, type);
         OutputStream outputStream = null;
         InputStream inputStream = null;
         try {
             inputStream = new FileInputStream(sourceFile);
             outputStream = new FileOutputStream(destinationFile);
             int buffer;
-            if(type) {
+            if (type) {
                 while ((buffer = inputStream.read()) != -1) {
                     outputStream.write(buffer * key);
                 }
-            }
-            else{
-                while ((buffer = inputStream.read()) != -1) {
-                    for (int i = 1; i <=255 ; i++) {
-                        int k = (byte) (i * key);
-                        if (k == 1) {
-                            key=i;
-                        }
+            } else {
+                int decryptionKey = 0;
+                for (int i = 1; i <= 255; i++) {
+                    if (((i * key) & 0x000000FF) == 1) {
+                        decryptionKey = i;
+                        break;
                     }
-                    outputStream.write(buffer *key);
+                }
+                while ((buffer = inputStream.read()) != -1) {
+                    outputStream.write(buffer * decryptionKey);
                 }
             }
+
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (outputStream != null)
-                try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            if (inputStream != null)
-                try{
-                    inputStream.close();
-                }
-                catch (IOException e){
-                    e.printStackTrace();
-                }
+            ended();
+            CloseFile(outputStream, inputStream);
         }
     }
 
 
     @Override
     public void encrypted(File sourceFile, int key) {
-        crypt(sourceFile,key,true);
+        crypt(sourceFile, key, true);
 
     }
 
     @Override
     public void decrypted(File sourceFile, int key) {
-        crypt(sourceFile,key,false);
+        crypt(sourceFile, key, false);
     }
 }

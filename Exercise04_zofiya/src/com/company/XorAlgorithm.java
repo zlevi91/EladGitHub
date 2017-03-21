@@ -2,13 +2,16 @@ package com.company;
 
 import java.io.*;
 
+import static com.company.FileHandler.CloseFile;
+
 /**
  * Created by hackeru on 3/20/2017.
  */
-public class XorAlgorithm extends Algorithms implements Operations {
+public class XorAlgorithm extends Algorithms {
 
     @Override
     public void crypt(File sourceFile, int key, boolean type) {
+        started();
         makeFile(sourceFile,type);
         OutputStream outputStream = null;
         InputStream inputStream = null;
@@ -19,25 +22,13 @@ public class XorAlgorithm extends Algorithms implements Operations {
             while ((buffer = inputStream.read()) != -1) {
                 outputStream.write(buffer ^ key);
             }
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (outputStream != null)
-                try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            if (inputStream != null)
-                try{
-                    inputStream.close();
-                }
-                catch (IOException e){
-                    e.printStackTrace();
-                }
+            ended();
+            CloseFile(outputStream, inputStream);
         }
     }
 
@@ -51,4 +42,5 @@ public class XorAlgorithm extends Algorithms implements Operations {
         crypt(sourceFile,key,false);
 
     }
+
 }

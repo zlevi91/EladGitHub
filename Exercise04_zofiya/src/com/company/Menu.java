@@ -6,13 +6,21 @@ import java.util.Random;
 /**
  * Created by hackeru on 3/15/2017.
  */
-public class Menu {
+public class Menu implements Listener {
+    public static final String ENCRYPT = "1";
+    public static final String DECRYPT = "2";
+    public static final String CAESAR = "1";
+    public static final String XOR = "2";
+    public static final String MULT = "3";
+    public static final String REVERS = "4";
+
     Output myOutput; //= new ScreenOutput();
     Input myInput ;//= new ScreenInput();
     FileOperations myFileOperations = new FileOperations();
     String filePathString;
     File filePath;
     Operations crypt;
+    String input;
 
     public Menu(Output myOutput, Input myInput) {
         this.myOutput = myOutput;
@@ -38,12 +46,12 @@ public class Menu {
     public String myChoice(String input) {
         if (input.length() != 0) {
             switch (input) {
-                case "1":
+                case ENCRYPT:
                     selectionAlgorithm();
                     getPathFromUser();
                     encryptFile(filePath);
                     return "encrypt";
-                case "2":
+                case DECRYPT:
                     selectionAlgorithm();
                     getPathFromUser();
                     decryptFile(filePath);
@@ -70,19 +78,19 @@ public class Menu {
 
     public void selectionAlgorithm(){
         myOutput.output("Select the algorithm to use:\n 1. Caesar 1\n 2. XorAlgorithm Press 2\n 3. MultAlgorithm Press 3\n 4. ReverseAlgorithm press 4\n your choice:");
-        String input=myInput.input();
+        input=myInput.input();
         if (input.length()!=0){
             switch (input) {
-                case "1":
+                case CAESAR:
                     crypt = new Caesar();
                     return;
-                case "2":
+                case XOR:
                     crypt = new XorAlgorithm();
                     return;
-                case "3":
+                case MULT:
                     crypt = new MultAlgorithm();
                     return;
-                case "4":
+                case REVERS:
                     crypt= new ReverseAlgorithm(myOutput,myInput);
                     return;
 
@@ -102,18 +110,29 @@ public class Menu {
 
     public void encryptFile (File filePath){
         int key=keyLottery();
+        if(Integer.parseInt(input)==3&&Integer.parseInt(input)==0){
+            if(key%2==0)
+                key=key+1;
+        }
         myOutput.output("The key is: " + key);
-        //Operations encrypt= new Caesar();
         crypt.encrypted(filePath, key);
     }
 
     public void decryptFile (File filePath){
         myOutput.output("Enter the encryption key in the file");
         String k= myInput.input();
-        //Operations decrypt= new Caesar();
         int key= Integer.valueOf(k);
         crypt.decrypted(filePath,key);
     }
 
 
+    @Override
+    public void StartDetect() {
+        myOutput.output("the action is start \nthe time now is"+System.nanoTime() );
+    }
+
+    @Override
+    public void EndDetect() {
+        myOutput.output("the action is end \nthe time now is" + System.nanoTime());
+    }
 }
